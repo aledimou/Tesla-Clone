@@ -9,6 +9,7 @@
 body {
   width: 100%;
   overflow-x: hidden;
+  font-size: 1rem;
 }
 
 @keyframes animateDown {
