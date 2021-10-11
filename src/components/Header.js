@@ -1,8 +1,12 @@
-import React from 'react'
+import React,{useState} from 'react'
 import styled from "styled-components"
 import MenuIcon from '@mui/icons-material/Menu';
+import CloseIcon from '@mui/icons-material/Close';
+const Header = () => {
 
-const header = () => {
+
+    const [isOpen, setIsOpen] = useState(false);
+
     return (
         <Container>
             <a >
@@ -17,13 +21,25 @@ const header = () => {
             <RightMenu>
             <a href="#">Shop</a>
             <a href="#">Tesla Account</a>
-            <CustomMenu />
+            {!isOpen && <CustomMenu  onClick={()=>{setIsOpen(true)}}/>}
             </RightMenu>
+            <BurgerNav show={isOpen}>
+                <CustomCloseContainer>
+                <CustomClose onClick={()=>{setIsOpen(false)}}/>
+                </CustomCloseContainer>
+                <li><a href="#">Existing Inventory</a></li>
+                <li><a href="#">Used Inventory</a></li>
+                <li><a href="#">Trade-in</a></li>
+                <li><a href="#">Cybertruck</a></li>
+                <li><a href="#">Roadster</a></li>
+                <li><a href="#">Existing Inventory</a></li>
+                <li><a href="#">Existing Inventory</a></li>
+            </BurgerNav>
         </Container>
     )
 }
 
-export default header
+export default Header
 
 const Container = styled.div`
     min-height: 60px;
@@ -35,6 +51,7 @@ const Container = styled.div`
     top: 0;
     left: 0;
     right: 0;
+    z-index: 1;
 `
 
 const Menu = styled.div`
@@ -69,4 +86,45 @@ aling-items: center;
 const CustomMenu = styled(MenuIcon)`
     display:flex;
     cursor: pointer;
+`
+
+
+const BurgerNav = styled.div`
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    background: white;
+    opacity: 0.7;
+    width: 300px;
+    z-index: 16;
+    list-style: none;
+    padding: 20px;
+    display:flex;
+    flex-direction:column;
+    text-align: start;
+    transform: ${props => props.show? "translateX(0)": "translateX(100%)"};
+    transition: 500ms;
+    li{
+        padding: 20px 2px;
+        border-bottom: 2px solid rgba(0, 0, 0, .2);
+
+        a{
+            font-weight: 700;
+        }
+    }
+   
+`
+
+const CustomCloseContainer = styled.div`
+    display: flex;
+    justify-content: flex-end;
+`
+
+const CustomClose = styled(CloseIcon)`
+    display: flex;
+    cursor: pointer;
+   
+    
+    
 `
