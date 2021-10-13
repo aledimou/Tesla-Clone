@@ -1,22 +1,28 @@
+
 import React,{useState} from 'react'
 import styled from "styled-components"
 import MenuIcon from '@mui/icons-material/Menu';
 import CloseIcon from '@mui/icons-material/Close';
+import { selectCars } from "./features/car/carSlice"
+import {useSelector} from "react-redux"
+
 const Header = () => {
 
 
     const [isOpen, setIsOpen] = useState(false);
-
+    const cars = useSelector(selectCars)
     return (
         <Container>
             <a >
                 <img src= "images/logo.svg" alt= "Tesla Logo"/>
             </a>
             <Menu>
-            <a href ="#">Model S</a>
-            <a href ="#">Model Y</a>
-            <a href ="#">Model 3</a>
-            <a href ="#">Model X</a>
+            {cars && cars.map((car, idx)=>{
+                
+                return <a key={idx} href ="#">{car}</a>
+            })}
+            
+           
             </Menu>
             <RightMenu>
             <a href="#">Shop</a>
@@ -27,12 +33,14 @@ const Header = () => {
                 <CustomCloseContainer>
                 <CustomClose onClick={()=>{setIsOpen(false)}}/>
                 </CustomCloseContainer>
+                {cars && cars.map((car, idx)=>{
+                    return <li key={idx}><a href="#">{car}</a></li>
+                })}
                 <li><a href="#">Existing Inventory</a></li>
                 <li><a href="#">Used Inventory</a></li>
                 <li><a href="#">Trade-in</a></li>
                 <li><a href="#">Cybertruck</a></li>
                 <li><a href="#">Roadster</a></li>
-                <li><a href="#">Existing Inventory</a></li>
                 <li><a href="#">Existing Inventory</a></li>
             </BurgerNav>
         </Container>
